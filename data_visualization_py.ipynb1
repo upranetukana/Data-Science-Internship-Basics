@@ -7,7 +7,7 @@
         "colab_type": "text"
       },
       "source": [
-        "<a href=\"https://colab.research.google.com/github/upranetukana/Data-Science-Internship-Basics/blob/main/Welcome_To_Colab.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+        "<a href=\"https://colab.research.google.com/github/upranetukana/Data-Science-Internship-Basics/blob/main/data_visualization_py.ipynb1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
     },
     {
@@ -33,12 +33,12 @@
         "print(\"Plot saved as plot.png!\")"
       ],
       "metadata": {
-        "id": "t0fW37fL0poN",
-        "outputId": "e2cc33f4-f77e-4c27-e7b4-caa36429b429",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 504
-        }
+        },
+        "id": "t0fW37fL0poN",
+        "outputId": "e2cc33f4-f77e-4c27-e7b4-caa36429b429"
       },
       "execution_count": 11,
       "outputs": [

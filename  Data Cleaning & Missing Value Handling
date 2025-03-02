@@ -1,0 +1,168 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/upranetukana/Data-Science-Internship-Basics/blob/main/%20Data%20Cleaning%20%26%20Missing%20Value%20Handling\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "np.random.seed(42)\n",
+        "data = {\n",
+        "    'id': np.arange(1, 11),\n",
+        "    'name': ['Amit', 'Priya', 'Raj', 'Suman', 'Neha', 'Arjun', 'Pooja', 'Rahul', 'Kiran', 'Vikram'],\n",
+        "    'age': [25, 30, np.nan, 35, 28, np.nan, 22, 29, 40, np.nan],\n",
+        "    'salary': [50000, 60000, 55000, np.nan, 65000, 62000, 48000, np.nan, 70000, 67000],\n",
+        "    'city': ['Mumbai', 'Delhi', 'Bangalore', 'Mumbai', 'Bangalore', np.nan, 'Delhi', 'Mumbai', 'Delhi', 'Bangalore']\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "df = pd.concat([df, df.iloc[2:4]], ignore_index=True)\n",
+        "\n",
+        "print(\"Original Dataset with Missing Values & Duplicates:\")\n",
+        "print(df)\n",
+        "\n",
+        "df['age'].fillna(df['age'].median(), inplace=True)\n",
+        "df['salary'].fillna(df['salary'].mean(), inplace=True)\n",
+        "df['city'].fillna('Unknown', inplace=True)\n",
+        "\n",
+        "df.drop_duplicates(inplace=True)\n",
+        "\n",
+        "df.columns = df.columns.str.lower().str.replace(' ', '_')\n",
+        "\n",
+        "print(\"\\nCleaned Dataset:\")\n",
+        "print(df)\n",
+        "\n",
+        "df.to_csv(\"cleaned_dataset.csv\", index=False)\n"
+      ],
+      "metadata": {
+        "id": "mT_AkF_IrWPi",
+        "outputId": "7ca02d02-0167-4083-c78b-107f77ab29c1",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original Dataset with Missing Values & Duplicates:\n",
+            "    id    name   age   salary       city\n",
+            "0    1    Amit  25.0  50000.0     Mumbai\n",
+            "1    2   Priya  30.0  60000.0      Delhi\n",
+            "2    3     Raj   NaN  55000.0  Bangalore\n",
+            "3    4   Suman  35.0      NaN     Mumbai\n",
+            "4    5    Neha  28.0  65000.0  Bangalore\n",
+            "5    6   Arjun   NaN  62000.0        NaN\n",
+            "6    7   Pooja  22.0  48000.0      Delhi\n",
+            "7    8   Rahul  29.0      NaN     Mumbai\n",
+            "8    9   Kiran  40.0  70000.0      Delhi\n",
+            "9   10  Vikram   NaN  67000.0  Bangalore\n",
+            "10   3     Raj   NaN  55000.0  Bangalore\n",
+            "11   4   Suman  35.0      NaN     Mumbai\n",
+            "\n",
+            "Cleaned Dataset:\n",
+            "   id    name   age        salary       city\n",
+            "0   1    Amit  25.0  50000.000000     Mumbai\n",
+            "1   2   Priya  30.0  60000.000000      Delhi\n",
+            "2   3     Raj  29.5  55000.000000  Bangalore\n",
+            "3   4   Suman  35.0  59111.111111     Mumbai\n",
+            "4   5    Neha  28.0  65000.000000  Bangalore\n",
+            "5   6   Arjun  29.5  62000.000000    Unknown\n",
+            "6   7   Pooja  22.0  48000.000000      Delhi\n",
+            "7   8   Rahul  29.0  59111.111111     Mumbai\n",
+            "8   9   Kiran  40.0  70000.000000      Delhi\n",
+            "9  10  Vikram  29.5  67000.000000  Bangalore\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "<ipython-input-1-7c9c1b8062b0>:20: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+            "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
+            "\n",
+            "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
+            "\n",
+            "\n",
+            "  df['age'].fillna(df['age'].median(), inplace=True)\n",
+            "<ipython-input-1-7c9c1b8062b0>:21: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+            "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
+            "\n",
+            "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
+            "\n",
+            "\n",
+            "  df['salary'].fillna(df['salary'].mean(), inplace=True)\n",
+            "<ipython-input-1-7c9c1b8062b0>:22: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+            "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
+            "\n",
+            "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
+            "\n",
+            "\n",
+            "  df['city'].fillna('Unknown', inplace=True)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "import seaborn as sns\n",
+        "\n",
+        "df = sns.load_dataset('tips')\n",
+        "\n",
+        "print(df.head())"
+      ],
+      "metadata": {
+        "id": "LYDUUySKsRde",
+        "outputId": "bf5bd0a8-8b41-43b8-8732-a6ed245fbcae",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "   total_bill   tip     sex smoker  day    time  size\n",
+            "0       16.99  1.01  Female     No  Sun  Dinner     2\n",
+            "1       10.34  1.66    Male     No  Sun  Dinner     3\n",
+            "2       21.01  3.50    Male     No  Sun  Dinner     3\n",
+            "3       23.68  3.31    Male     No  Sun  Dinner     2\n",
+            "4       24.59  3.61  Female     No  Sun  Dinner     4\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Welcome To Colab",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}

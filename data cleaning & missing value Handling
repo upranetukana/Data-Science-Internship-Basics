@@ -11,107 +11,137 @@
       ]
     },
     {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "Data Cleaning & Missing Value Handling\n",
+        "\n",
+        "- Use Pandas to load a dataset.\n",
+        "\n",
+        "- Identify and handle missing values (fillna(), dropna()).\n",
+        "\n",
+        "- Remove duplicate entries.\n",
+        "\n",
+        "- Standardize column names (lowercase, no spaces)."
+      ],
+      "metadata": {
+        "id": "Q-Z_RaEwvH8m"
+      }
+    },
+    {
       "cell_type": "code",
       "source": [
         "import pandas as pd\n",
         "import numpy as np\n",
         "\n",
-        "np.random.seed(42)\n",
+        "# Generate a random dataset with missing values\n",
+        "np.random.seed(42)  # For reproducibility\n",
         "data = {\n",
         "    'id': np.arange(1, 11),\n",
-        "    'name': ['Amit', 'Priya', 'Raj', 'Suman', 'Neha', 'Arjun', 'Pooja', 'Rahul', 'Kiran', 'Vikram'],\n",
-        "    'age': [25, 30, np.nan, 35, 28, np.nan, 22, 29, 40, np.nan],\n",
-        "    'salary': [50000, 60000, 55000, np.nan, 65000, 62000, 48000, np.nan, 70000, 67000],\n",
-        "    'city': ['Mumbai', 'Delhi', 'Bangalore', 'Mumbai', 'Bangalore', np.nan, 'Delhi', 'Mumbai', 'Delhi', 'Bangalore']\n",
+        "    'name': ['Abi', 'Ben', 'Jerry', 'Dravid', 'Prathana', 'Fharan', 'Ram', 'Keven', 'Indhra', 'Sam'],\n",
+        "    'age': [25, 30, np.nan, 35, 28, np.nan, 22, 29, 40, np.nan],  # Missing values in 'age'\n",
+        "    'salary': [50000, 60000, 55000, np.nan, 65000, 62000, 48000, np.nan, 70000, 67000],  # Missing values in 'salary'\n",
+        "    'city': ['NY', 'LA', 'SF', 'NY', 'SF', np.nan, 'LA', 'NY', 'LA', 'SF']  # Missing value in 'city'\n",
         "}\n",
         "\n",
+        "# Convert dictionary to DataFrame\n",
         "df = pd.DataFrame(data)\n",
         "\n",
+        "# Introduce some duplicate rows\n",
         "df = pd.concat([df, df.iloc[2:4]], ignore_index=True)\n",
         "\n",
         "print(\"Original Dataset with Missing Values & Duplicates:\")\n",
         "print(df)\n",
         "\n",
-        "df['age'].fillna(df['age'].median(), inplace=True)\n",
-        "df['salary'].fillna(df['salary'].mean(), inplace=True)\n",
-        "df['city'].fillna('Unknown', inplace=True)\n",
+        "# -------------------------------------------\n",
+        "# DATA CLEANING PROCESS\n",
+        "# -------------------------------------------\n",
         "\n",
+        "# 1. Handle Missing Values\n",
+        "df['age'].fillna(df['age'].median(), inplace=True)  # Fill missing 'age' with median\n",
+        "df['salary'].fillna(df['salary'].mean(), inplace=True)  # Fill missing 'salary' with mean\n",
+        "df['city'].fillna('Unknown', inplace=True)  # Fill missing 'city' with 'Unknown'\n",
+        "\n",
+        "# 2. Remove Duplicate Entries\n",
         "df.drop_duplicates(inplace=True)\n",
         "\n",
+        "# 3. Standardize Column Names (lowercase, no spaces)\n",
         "df.columns = df.columns.str.lower().str.replace(' ', '_')\n",
         "\n",
+        "# Display cleaned dataset\n",
         "print(\"\\nCleaned Dataset:\")\n",
         "print(df)\n",
         "\n",
-        "df.to_csv(\"cleaned_dataset.csv\", index=False)\n"
+        "# Save cleaned dataset as CSV (optional)\n",
+        "df.to_csv(\"cleaned_dataset.csv\", index=False)"
       ],
       "metadata": {
+        "id": "f5JW9MhMvI6Z",
+        "outputId": "1d330ad8-cd32-4ae9-9840-9fbebc438126",
         "colab": {
           "base_uri": "https://localhost:8080/"
-        },
-        "id": "mT_AkF_IrWPi",
-        "outputId": "7ca02d02-0167-4083-c78b-107f77ab29c1"
+        }
       },
-      "execution_count": 1,
+      "execution_count": 4,
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
             "Original Dataset with Missing Values & Duplicates:\n",
-            "    id    name   age   salary       city\n",
-            "0    1    Amit  25.0  50000.0     Mumbai\n",
-            "1    2   Priya  30.0  60000.0      Delhi\n",
-            "2    3     Raj   NaN  55000.0  Bangalore\n",
-            "3    4   Suman  35.0      NaN     Mumbai\n",
-            "4    5    Neha  28.0  65000.0  Bangalore\n",
-            "5    6   Arjun   NaN  62000.0        NaN\n",
-            "6    7   Pooja  22.0  48000.0      Delhi\n",
-            "7    8   Rahul  29.0      NaN     Mumbai\n",
-            "8    9   Kiran  40.0  70000.0      Delhi\n",
-            "9   10  Vikram   NaN  67000.0  Bangalore\n",
-            "10   3     Raj   NaN  55000.0  Bangalore\n",
-            "11   4   Suman  35.0      NaN     Mumbai\n",
+            "    id      name   age   salary city\n",
+            "0    1       Abi  25.0  50000.0   NY\n",
+            "1    2       Ben  30.0  60000.0   LA\n",
+            "2    3     Jerry   NaN  55000.0   SF\n",
+            "3    4    Dravid  35.0      NaN   NY\n",
+            "4    5  Prathana  28.0  65000.0   SF\n",
+            "5    6    Fharan   NaN  62000.0  NaN\n",
+            "6    7       Ram  22.0  48000.0   LA\n",
+            "7    8     Keven  29.0      NaN   NY\n",
+            "8    9    Indhra  40.0  70000.0   LA\n",
+            "9   10       Sam   NaN  67000.0   SF\n",
+            "10   3     Jerry   NaN  55000.0   SF\n",
+            "11   4    Dravid  35.0      NaN   NY\n",
             "\n",
             "Cleaned Dataset:\n",
-            "   id    name   age        salary       city\n",
-            "0   1    Amit  25.0  50000.000000     Mumbai\n",
-            "1   2   Priya  30.0  60000.000000      Delhi\n",
-            "2   3     Raj  29.5  55000.000000  Bangalore\n",
-            "3   4   Suman  35.0  59111.111111     Mumbai\n",
-            "4   5    Neha  28.0  65000.000000  Bangalore\n",
-            "5   6   Arjun  29.5  62000.000000    Unknown\n",
-            "6   7   Pooja  22.0  48000.000000      Delhi\n",
-            "7   8   Rahul  29.0  59111.111111     Mumbai\n",
-            "8   9   Kiran  40.0  70000.000000      Delhi\n",
-            "9  10  Vikram  29.5  67000.000000  Bangalore\n"
+            "   id      name   age        salary     city\n",
+            "0   1       Abi  25.0  50000.000000       NY\n",
+            "1   2       Ben  30.0  60000.000000       LA\n",
+            "2   3     Jerry  29.5  55000.000000       SF\n",
+            "3   4    Dravid  35.0  59111.111111       NY\n",
+            "4   5  Prathana  28.0  65000.000000       SF\n",
+            "5   6    Fharan  29.5  62000.000000  Unknown\n",
+            "6   7       Ram  22.0  48000.000000       LA\n",
+            "7   8     Keven  29.0  59111.111111       NY\n",
+            "8   9    Indhra  40.0  70000.000000       LA\n",
+            "9  10       Sam  29.5  67000.000000       SF\n"
           ]
         },
         {
           "output_type": "stream",
           "name": "stderr",
           "text": [
-            "<ipython-input-1-7c9c1b8062b0>:20: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+            "<ipython-input-4-4c2d1f9eae46>:28: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
             "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
             "\n",
             "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
             "\n",
             "\n",
-            "  df['age'].fillna(df['age'].median(), inplace=True)\n",
-            "<ipython-input-1-7c9c1b8062b0>:21: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+            "  df['age'].fillna(df['age'].median(), inplace=True)  # Fill missing 'age' with median\n",
+            "<ipython-input-4-4c2d1f9eae46>:29: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
             "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
             "\n",
             "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
             "\n",
             "\n",
-            "  df['salary'].fillna(df['salary'].mean(), inplace=True)\n",
-            "<ipython-input-1-7c9c1b8062b0>:22: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
+            "  df['salary'].fillna(df['salary'].mean(), inplace=True)  # Fill missing 'salary' with mean\n",
+            "<ipython-input-4-4c2d1f9eae46>:30: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.\n",
             "The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.\n",
             "\n",
             "For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.\n",
             "\n",
             "\n",
-            "  df['city'].fillna('Unknown', inplace=True)\n"
+            "  df['city'].fillna('Unknown', inplace=True)  # Fill missing 'city' with 'Unknown'\n"
           ]
         }
       ]
@@ -119,22 +149,22 @@
     {
       "cell_type": "code",
       "source": [
-        "\n",
         "import pandas as pd\n",
         "import seaborn as sns\n",
         "\n",
+        "# Load the 'tips' dataset\n",
         "df = sns.load_dataset('tips')\n",
         "\n",
         "print(df.head())"
       ],
       "metadata": {
+        "id": "rwn0O8dRv9qL",
+        "outputId": "b75351b5-d46b-4b31-93ef-c90802c19045",
         "colab": {
           "base_uri": "https://localhost:8080/"
-        },
-        "id": "LYDUUySKsRde",
-        "outputId": "bf5bd0a8-8b41-43b8-8732-a6ed245fbcae"
+        }
       },
-      "execution_count": 2,
+      "execution_count": 5,
       "outputs": [
         {
           "output_type": "stream",
@@ -154,7 +184,6 @@
   "metadata": {
     "colab": {
       "name": "Welcome To Colab",
-      "toc_visible": true,
       "provenance": [],
       "include_colab_link": true
     },

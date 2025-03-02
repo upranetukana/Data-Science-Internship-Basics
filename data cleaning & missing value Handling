@@ -7,7 +7,7 @@
         "colab_type": "text"
       },
       "source": [
-        "<a href=\"https://colab.research.google.com/github/upranetukana/Data-Science-Internship-Basics/blob/main/%20Data%20Cleaning%20%26%20Missing%20Value%20Handling\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+        "<a href=\"https://colab.research.google.com/github/upranetukana/Data-Science-Internship-Basics/blob/main/data%20cleaning%20%26%20missing%20value%20Handling\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
     },
     {
@@ -46,11 +46,11 @@
         "df.to_csv(\"cleaned_dataset.csv\", index=False)\n"
       ],
       "metadata": {
-        "id": "mT_AkF_IrWPi",
-        "outputId": "7ca02d02-0167-4083-c78b-107f77ab29c1",
         "colab": {
           "base_uri": "https://localhost:8080/"
-        }
+        },
+        "id": "mT_AkF_IrWPi",
+        "outputId": "7ca02d02-0167-4083-c78b-107f77ab29c1"
       },
       "execution_count": 1,
       "outputs": [
@@ -128,11 +128,11 @@
         "print(df.head())"
       ],
       "metadata": {
-        "id": "LYDUUySKsRde",
-        "outputId": "bf5bd0a8-8b41-43b8-8732-a6ed245fbcae",
         "colab": {
           "base_uri": "https://localhost:8080/"
-        }
+        },
+        "id": "LYDUUySKsRde",
+        "outputId": "bf5bd0a8-8b41-43b8-8732-a6ed245fbcae"
       },
       "execution_count": 2,
       "outputs": [
